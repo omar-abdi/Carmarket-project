@@ -30,7 +30,7 @@ function Header() {
       
           <div className="flex items-center gap-2 rounded-md border border-[#F5A623] px-4 py-2 text-sm bg-white">
           
-            <input type="text" placeholder="Search" className="w-full" />
+            <input type="text" placeholder="Search" className="w-full " />
          <button className="flex items-center gap-2 rounded-md border border-[#F5A623] px-4 py-2 text-sm bg-white">search</button>
           </div>
           {/* Nav-ka desktop-ka */}
@@ -81,10 +81,10 @@ function Header() {
         }`}
       >
         <div className="px-6 pb-4 flex flex-col gap-4 border-t border-[#1A1D22] pt-4">
-          <Link to="/sign-in" onClick={() => setOpen(false)} className="text-sm text-[#B9BEC7] hover:text-white">
+          <Link to="/login" onClick={() => setOpen(false)} className="text-sm text-[#B9BEC7] hover:text-white">
             Sign In
           </Link>
-          <Link to="/sign-up" onClick={() => setOpen(false)} className="text-sm text-[#F5A623] font-medium">
+          <Link to="/sigNup" onClick={() => setOpen(false)} className="text-sm text-[#F5A623] font-medium">
             Sign Up
           </Link>
           <Link to="/profile" onClick={() => setOpen(false)} className="text-sm text-[#B9BEC7] hover:text-white flex items-center gap-2">
