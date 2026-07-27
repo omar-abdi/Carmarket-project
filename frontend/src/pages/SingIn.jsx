@@ -1,9 +1,9 @@
-import React from 'react'
+
 
 function SingIn() {
   return (
     <div>
-      <h1 className="text-3xl font-bold text-red-500">SingIn</h1>
+      <h1 className="text-3xl font-bold text-green-500">Sign In</h1>
     </div>
   )
 }

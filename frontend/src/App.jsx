@@ -4,20 +4,21 @@ import Home from './pages/Home'
 import Profile from './pages/Profile'
 import SigNup from './pages/SigNup'
 import SingIn from './pages/SingIn'
+import Header from './componets/Header'
 function App() {
   return (
-    <div className="text-3xl font-bold  text-red-500">
-      app
-    
+    <div className="min-h-screen bg-slate-50 text-slate-950">
+      <Header />
+      <main>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/sigNup" element={<SigNup />} />
-          <Route path="/singIn" element={<SingIn />} />
+          <Route path="/login" element={<SingIn />} />
         </Routes>
-     
+      </main>
     </div>
-  )
+  ) 
 }
 
 export default App
