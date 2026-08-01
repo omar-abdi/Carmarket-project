@@ -1,6 +1,42 @@
 import React from 'react'
-
+import { useState } from 'react'
+import axios from 'axios'
+import {toast , ToastContainer} from 'react-toastify'
 function SigNup() {
+  const [formData , setFormData] = useState({
+    username:"",
+    email :"",
+    password:""
+  })
+
+  const handleChange = (e)=>{
+    setFormData({
+      ...formData,
+      [e.target.id]:e.target.value
+    })
+  }
+  const handleSubmit = async (e)=>{
+
+    e.preventDefault()
+    if(!formData.username || !formData.email || !formData.password){
+      toast.error('Please fill all the fields')
+      return
+    }
+    
+     const res = await axios.post('http://localhost:8000/api/users/signup' , formData)
+    const data =   await res.data
+    if(data.success){
+      toast.success(data.message)
+      setFormData({
+        username:"",
+        email :"",
+        password:""
+      })
+    }else{
+      toast.error(data.message)
+    }
+  } 
+
   return (
    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-950 via-slate-900 to-purple-950 p-4">
   <div className="bg-white/95 backdrop-blur-sm p-10 rounded-2xl shadow-2xl w-full max-w-md border border-white/20">
@@ -11,10 +47,11 @@ function SigNup() {
       Create your account to get started
     </p>
 
-    <form className="space-y-4">
+    <form className="space-y-4" onSubmit={handleSubmit}>
       <input
         type="text"
         id="username"
+        onChange={handleChange}
         placeholder="Username"
         className="w-full border border-slate-200 p-3.5 rounded-xl outline-none transition-all focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder:text-slate-400"
       />
@@ -22,6 +59,7 @@ function SigNup() {
       <input
         type="email"
         id="email"
+         onChange={handleChange}
         placeholder="Email"
         className="w-full border border-slate-200 p-3.5 rounded-xl outline-none transition-all focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder:text-slate-400"
       />
@@ -29,6 +67,7 @@ function SigNup() {
       <input
         type="password"
         id="password"
+         onChange={handleChange}
         placeholder="Password"
         className="w-full border border-slate-200 p-3.5 rounded-xl outline-none transition-all focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder:text-slate-400"
       />
@@ -48,6 +87,7 @@ function SigNup() {
       </span>
     </p>
   </div>
+  <ToastContainer/>
 </div>
   )
 }
