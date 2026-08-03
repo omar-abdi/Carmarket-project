@@ -1,7 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
 import axios from 'axios'
+
 import {toast , ToastContainer} from 'react-toastify'
+import { Link } from 'react-router-dom'
 function SigNup() {
   const [formData , setFormData] = useState({
     username:"",
@@ -83,7 +85,7 @@ function SigNup() {
     <p className="text-center text-sm text-slate-500 mt-6">
       Already have an account?{" "}
       <span className="text-indigo-600 font-medium cursor-pointer hover:underline">
-        Log in
+       <Link to="/login"> Log in </Link>
       </span>
     </p>
   </div>
