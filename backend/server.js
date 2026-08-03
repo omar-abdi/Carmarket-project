@@ -4,12 +4,14 @@ import connectDB from './config/db.js'
 import dns from "dns";
 import userRoutes from './Routes/user.js'
 import cors from "cors"
+import cookieParser from "cookie-parser";
 
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 dotenv.config()
 const app = express()
 
 app.use(express.json())
+app.use(cookieParser());
 app.use(cors())
 app.use("/api/users" , userRoutes)
 ///2FUNcl2F807epOwy

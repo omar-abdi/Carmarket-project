@@ -2,6 +2,7 @@
 
 import User from '../modals/user.js';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
    export const Signup = async (req , res)=>{
    try {
@@ -37,4 +38,41 @@ import bcrypt from 'bcryptjs';
     res.status(500).json({ message: 'Server error' });
    }    
 
+}
+
+// login page ,
+export const Login = async (req , res)=>{
+    try {
+        const { email , password } = req.body;  
+        if(!email || !password){
+            return res.status(400).json({ message: 'Please provide email and password' });
+        }    
+            const user = await User.findOne({ email });
+            if(!user){
+                return res.status(400).json({ message: 'User not found' });
+            }
+            
+            const isMatch = await bcrypt.compare(password , user.password);
+            if(!isMatch){
+                return res.status(400).json({ message: 'Invalid credentials' });
+            }   
+// 
+const token = jwt.sign({
+     id: user._id }, 
+     process.env.JWT_SECRET,  )
+     
+res.cookie('token' , token , {  httpOnly: true });
+            res.status(200).json({
+                success: true,
+                message: 'Login successful',
+                data : user,
+              
+            });
+
+
+    } catch(err){   
+        console.error(err);
+
+        res.status(500).json({ message: 'Server error' });
+    }
 }
