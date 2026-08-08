@@ -5,6 +5,7 @@ import axios from 'axios'
 import {toast , ToastContainer} from 'react-toastify'
 import { Link } from 'react-router-dom'
 function SigNup() {
+
   const [formData , setFormData] = useState({
     username:"",
     email :"",
@@ -29,6 +30,7 @@ function SigNup() {
     const data =   await res.data
     if(data.success){
       toast.success(data.message)
+   
       setFormData({
         username:"",
         email :"",
@@ -36,9 +38,10 @@ function SigNup() {
       })
     }else{
       toast.error(data.message)
+    
     }
   } 
-
+ currentUser &&      console.log(currentUser)
   return (
    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-950 via-slate-900 to-purple-950 p-4">
   <div className="bg-white/95 backdrop-blur-sm p-10 rounded-2xl shadow-2xl w-full max-w-md border border-white/20">

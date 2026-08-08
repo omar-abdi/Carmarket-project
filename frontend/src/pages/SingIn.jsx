@@ -1,10 +1,19 @@
 import React from 'react'
 import { useState } from 'react'
 import axios from 'axios'
+import {useAppContext} from '../context/AppContext.jsx'
 import {Link} from 'react-router-dom'
 import {useNavigate} from 'react-router-dom'
 import {toast , ToastContainer} from 'react-toastify'
 function Singin() {
+    const {
+      signInStart 
+      , signInSuccess , 
+      signInFailure ,
+      loading , 
+      currentUser,
+    
+      error} = useAppContext()
   const navigate = useNavigate()
   const [formData , setFormData] = useState({
    
@@ -26,10 +35,17 @@ function Singin() {
       return
     }
     
+
+
+   try{
+ signInStart()
      const res = await axios.post('http://localhost:8000/api/users/login' , formData)
     const data =   await res.data
     if(data.success){
-      toast.success(data.message)
+      toast.success(data.user)
+      toast.success('You are logged in')
+         signInSuccess(data)
+         
       navigate('/')
       setFormData({
      
@@ -37,10 +53,17 @@ function Singin() {
         password:""
       })
   
-    }else{
-      toast.error(data.message)
+    
     }
+   }catch(error){
+     toast.error(error.message)
+     signInFailure(error.message)
+
+   }
   } 
+
+  currentUser && console.log(currentUser)
+
 
   return (
    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-950 via-slate-900 to-purple-950 p-4">
