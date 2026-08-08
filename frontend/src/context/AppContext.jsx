@@ -1,12 +1,21 @@
 import { createContext, useState, useContext , useEffect} from "react";
 
 const AppContext = createContext();
+const DEFAULT_AVATAR = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
 
 export const AppProvider = ({children}) => {
     const [currentUser, setCurrentUser] = useState(()=>{
         const userData = localStorage.getItem('current-user-data');
         if(userData){
-          return JSON.parse(userData)
+          try {
+            const user = JSON.parse(userData);
+            return {
+              ...user,
+              avatar: user.avatar || DEFAULT_AVATAR,
+            };
+          } catch {
+            return null;
+          }
         }
         return null;
     });
@@ -19,7 +28,10 @@ export const AppProvider = ({children}) => {
     const signInStart = () => setLoading(true);
 
       const signInSuccess = (user) => {
-    setCurrentUser(user);
+    setCurrentUser({
+      ...user,
+      avatar: user.avatar || DEFAULT_AVATAR,
+    });
     setLoading(false);
     setError(null);
   };

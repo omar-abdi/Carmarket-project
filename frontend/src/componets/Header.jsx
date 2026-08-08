@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { User, Menu, X  } from "lucide-react";
-
+import {useAppContext} from '../context/AppContext.jsx'
 function Header() {
+  const {currentUser} = useAppContext()
   const [open, setOpen] = useState(false);
 
   const navLinks = [
@@ -10,7 +11,7 @@ function Header() {
     { to: "/sign-in", label: "Sign In" },
     { to: "/sign-up", label: "Sign Up" },
   ];
-
+    const avatarUrl = currentUser?.avatar
   return (
     <header className="sticky top-0 z-50 bg-[#0B0D10]/90 backdrop-blur-md">
       {/* Xariiqda sare - u eg calaamadaha jidka (road dashes) oo dhaqaaqaysa */}
@@ -39,14 +40,24 @@ function Header() {
               to="/"
               className="relative text-sm text-[#B9BEC7] hover:text-white transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-[#F5A623] after:transition-all after:duration-300 hover:after:w-full"
             >
-              Home
+            Home
+             
             </Link>
             <Link
-              to="/login"
-              className="relative text-sm text-[#B9BEC7] hover:text-white transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-[#F5A623] after:transition-all after:duration-300 hover:after:w-full"
-            >
-              Sign In
-            </Link>
+  to={currentUser ? "/profile" : "/sign-in"}
+  className="relative text-sm text-[#B9BEC7] hover:text-white transition-colors"
+>
+  {currentUser ? (
+    <img
+      src={avatarUrl}
+      alt="Profile"
+      className="w-10 h-10 rounded-full object-cover border-2 border-[#F5A623]"
+    />
+  ) : (
+    "Sign In"
+  )}
+</Link>
+          
 
             <Link
               to="/signUp"
@@ -81,8 +92,18 @@ function Header() {
         }`}
       >
         <div className="px-6 pb-4 flex flex-col gap-4 border-t border-[#1A1D22] pt-4">
-          <Link to="/login" onClick={() => setOpen(false)} className="text-sm text-[#B9BEC7] hover:text-white">
-            Sign In
+          <Link to="/profile" onClick={() => setOpen(false)} className="text-sm text-[#B9BEC7] hover:text-white">
+            {
+              currentUser ? (
+                <img
+                  src={avatarUrl}
+                  alt="Profile"
+                  className="w-10 h-10 rounded-full object-cover border-2 border-[#F5A623]"
+                />
+              ) : (
+                <span>Sign In</span>
+              )
+            }
           </Link>
           <Link to="/sigNup" onClick={() => setOpen(false)} className="text-sm text-[#F5A623] font-medium">
             Sign Up

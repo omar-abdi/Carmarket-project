@@ -5,6 +5,7 @@ import {useAppContext} from '../context/AppContext.jsx'
 import {Link} from 'react-router-dom'
 import {useNavigate} from 'react-router-dom'
 import {toast , ToastContainer} from 'react-toastify'
+import { LogIn } from 'lucide-react'
 function Singin() {
     const {
       signInStart 
@@ -42,9 +43,8 @@ function Singin() {
      const res = await axios.post('http://localhost:8000/api/users/login' , formData)
     const data =   await res.data
     if(data.success){
-      toast.success(data.user)
-      toast.success('You are logged in')
-         signInSuccess(data)
+      toast.success("You are logged in")
+         signInSuccess(data.data)
          
       navigate('/')
       setFormData({

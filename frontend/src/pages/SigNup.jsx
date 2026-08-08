@@ -41,7 +41,7 @@ function SigNup() {
     
     }
   } 
- currentUser &&      console.log(currentUser)
+
   return (
    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-950 via-slate-900 to-purple-950 p-4">
   <div className="bg-white/95 backdrop-blur-sm p-10 rounded-2xl shadow-2xl w-full max-w-md border border-white/20">
