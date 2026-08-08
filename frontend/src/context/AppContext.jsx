@@ -1,9 +1,15 @@
-import { createContext, useState, useContext} from "react";
+import { createContext, useState, useContext , useEffect} from "react";
 
 const AppContext = createContext();
 
 export const AppProvider = ({children}) => {
-    const [currentUser, setCurrentUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState(()=>{
+        const userData = localStorage.getItem('current-user-data');
+        if(userData){
+          return JSON.parse(userData)
+        }
+        return null;
+    });
       const [error, setError] = useState(null);
 
   const [loading, setLoading] = useState(false);
@@ -17,6 +23,12 @@ export const AppProvider = ({children}) => {
     setLoading(false);
     setError(null);
   };
+  // set local stoare 
+  useEffect(() => {
+  if(currentUser){
+    localStorage.setItem('current-user-data', JSON.stringify(currentUser))
+    }
+  }, [currentUser])
 
    const signInFailure = (errorMessage) => {
     setError(errorMessage);
