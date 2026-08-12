@@ -62,7 +62,7 @@ function Singin() {
    }
   } 
 
-  currentUser && console.log(currentUser)
+ 
 
 
   return (

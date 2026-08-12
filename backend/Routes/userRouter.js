@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import {Signup , Login} from '../controolers/user.js';
+import {Signup , Login} from '../controolers/userControoller.js';
 
 const router = Router();
   

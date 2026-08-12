@@ -1,6 +1,6 @@
 
 
-import User from '../modals/user.js';
+import User from '../modals/userModel.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
@@ -61,7 +61,7 @@ const token = jwt.sign({
      id: user._id }, 
      process.env.JWT_SECRET,  )
      
-res.cookie('token' , token , {  httpOnly: true });
+res.cookie('access_token' , token , { httpOnly: true , maxAge: 1000 * 60 * 60 * 24 * 30 });
             res.status(200).json({
                 success: true,
                 message: 'Login successful',
