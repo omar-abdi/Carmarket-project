@@ -2,10 +2,12 @@ import React, { useState, useRef } from "react";
 import { Camera, Eye, EyeOff, User, Mail, Lock, LogOut, Trash2 } from "lucide-react";
 import axios from "axios"
 import { useAppContext } from "../context/AppContext";
+import {toast , ToastContainer} from 'react-toastify'
 
 function Profile() {
   const { currentUser  , updateSuccess, updateFailure, updateInStart } = useAppContext();
   const [Image, setImage] = useState(null);
+  const [Uploading , setUploading] = useState(false)
   const [formData, setFormData] = useState({});
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,7 +23,8 @@ function Profile() {
     if (!file) {
       return;
     }
-
+ setUploading(true);
+    toast.info("Uploading...");
     const data = new FormData();
 
     data.append("file", file);
@@ -59,18 +62,22 @@ function Profile() {
 
     if (data.success) {
       updateSuccess(data.data);
+      toast.success("Profile updated successfully")
     } else {
       updateFailure(data.message);
     }
 
   } catch (error) {
     console.log(error.response?.data || error.message);
+    toast.error("Something went wrong")
 
     updateFailure(
       error.response?.data?.message || error.message
     );
   }
 };
+
+Uploading &&  toast.info("Uploading...")
 
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
@@ -233,6 +240,7 @@ function Profile() {
           </div>
         </form>
       </div>
+      <ToastContainer/>
     </div>
   );
 }
