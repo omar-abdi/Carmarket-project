@@ -26,7 +26,9 @@ function SigNup() {
       return
     }
     
-     const res = await axios.post('http://localhost:8000/api/users/signup' , formData)
+     const res = await axios.post('http://localhost:8000/api/users/signup' , formData, {
+      withCredentials: true,
+    })
     const data =   await res.data
     if(data.success){
       toast.success(data.message)

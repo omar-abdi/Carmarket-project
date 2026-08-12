@@ -6,11 +6,7 @@ const updateUser = async (req, res) => {
         const { username, email, password, avatar } = req.body;
 
         // 1. Hubi username iyo email
-        if (!username || !email) {
-            return res.status(400).json({
-                message: "Please provide username and email",
-            });
-        }
+        
 
         // 2. Hubi in user-ku yahay qofka profile-ka leh
         if (req.user.id!== req.params.id) {

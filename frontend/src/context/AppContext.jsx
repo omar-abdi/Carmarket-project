@@ -26,12 +26,26 @@ export const AppProvider = ({children}) => {
 
   //Actions 
     const signInStart = () => setLoading(true);
+    const updateInStart = () => setLoading(true);
 
       const signInSuccess = (user) => {
-    setCurrentUser({
+    const nextUser = {
       ...user,
       avatar: user.avatar || DEFAULT_AVATAR,
-    });
+    };
+    setCurrentUser(nextUser);
+    localStorage.setItem('current-user-data', JSON.stringify(nextUser));
+    setLoading(false);
+    setError(null);
+  };
+      const updateSuccess = (user) => {
+    const nextUser = {
+      ...currentUser,
+      ...user,
+      avatar: user.avatar || user.avatarUrl || currentUser?.avatar || DEFAULT_AVATAR,
+    };
+    setCurrentUser(nextUser);
+    localStorage.setItem('current-user-data', JSON.stringify(nextUser));
     setLoading(false);
     setError(null);
   };
@@ -42,7 +56,12 @@ export const AppProvider = ({children}) => {
     }
   }, [currentUser])
 
+
    const signInFailure = (errorMessage) => {
+    setError(errorMessage);
+    setLoading(false);
+  };
+   const updateFailure = (errorMessage) => {
     setError(errorMessage);
     setLoading(false);
   };
@@ -53,6 +72,9 @@ export const AppProvider = ({children}) => {
     signInStart,
     signInFailure,
     signInSuccess,
+    updateInStart,
+    updateSuccess,  
+     updateFailure,
   }
     return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 

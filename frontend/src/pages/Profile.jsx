@@ -1,24 +1,24 @@
 import React, { useState, useRef } from "react";
 import { Camera, Eye, EyeOff, User, Mail, Lock, LogOut, Trash2 } from "lucide-react";
-
+import axios from "axios"
 import { useAppContext } from "../context/AppContext";
 
 function Profile() {
-  const { currentUser } = useAppContext();
+  const { currentUser  , updateSuccess, updateFailure, updateInStart } = useAppContext();
   const [Image, setImage] = useState(null);
-
+  const [formData, setFormData] = useState({});
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  // consle log
+ 
   const [showPassword, setShowPassword] = useState(false);
   const fileInput = useRef(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!fileInput.current) return;
-
-    const file = fileInput.current.files[0];
+  const handlefille = async (e) => {
+    const file = e.target.files?.[0];
 
     if (!file) {
-      console.log("Please select an image");
       return;
     }
 
@@ -33,18 +33,50 @@ function Profile() {
       {
         method: "POST",
         body: data,
+        
       }
     );
 
     const result = await response.json();
-    setImage(result.url);
+    setImage(result?.secure_url || result?.url || "");
   };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    updateInStart();
+
+    const res = await axios.put(
+      `http://localhost:8000/api/auth/update/${currentUser._id}`, formData,
+
+     
+      {
+        withCredentials: true,
+      }
+    );
+
+    const data = res.data;
+
+    if (data.success) {
+      updateSuccess(data.data);
+    } else {
+      updateFailure(data.message);
+    }
+
+  } catch (error) {
+    console.log(error.response?.data || error.message);
+
+    updateFailure(
+      error.response?.data?.message || error.message
+    );
+  }
+};
 
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-100 p-8">
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form  onSubmit={handleSubmit} className="space-y-6">
           {/* Header */}
           <div className="text-center">
             <h1 className="text-2xl font-bold text-slate-800">
@@ -59,7 +91,7 @@ function Profile() {
           {/* Avatar */}
           <div className="flex justify-center">
             <div className="relative group">
-              <input type="file" ref={fileInput} hidden />
+              <input onChange={handlefille} type="file" ref={fileInput} hidden />
 
               <img
                 alt="profile"
@@ -105,9 +137,12 @@ function Profile() {
                 />
 
                 <input
+                
                   id="name"
                   type="text"
-                  name="name"
+                  name="username"
+                  onChange={handleChange}
+                  defaultValue={currentUser.username}
                   placeholder="Enter your name"
                   className="w-full pl-10 pr-4 py-2.5 border border-slate-200 rounded-lg text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
                 />
@@ -133,7 +168,9 @@ function Profile() {
                   id="email"
                   type="email"
                   name="email"
+                  onChange={handleChange}
                   placeholder="you@example.com"
+                  defaultValue={currentUser.email}
                   className="w-full pl-10 pr-4 py-2.5 border border-slate-200 rounded-lg text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
                 />
               </div>
@@ -158,6 +195,7 @@ function Profile() {
                   id="password"
                   type={showPassword ? "text" : "password"}
                   name="password"
+                  onChange={handleChange}
                   placeholder="Enter new password"
                   className="w-full pl-10 pr-10 py-2.5 border border-slate-200 rounded-lg text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
                 />

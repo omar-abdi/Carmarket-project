@@ -61,7 +61,12 @@ const token = jwt.sign({
      id: user._id }, 
      process.env.JWT_SECRET,  )
      
-res.cookie('access_token' , token , { httpOnly: true , maxAge: 1000 * 60 * 60 * 24 * 30 });
+res.cookie('access_token' , token , { 
+  httpOnly: true,
+  sameSite: 'lax',
+  maxAge: 1000 * 60 * 60 * 24 * 30,
+  path: '/'
+});
             res.status(200).json({
                 success: true,
                 message: 'Login successful',
