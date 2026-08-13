@@ -6,6 +6,7 @@ import userRoutes from './Routes/userRouter.js'
 import cors from "cors"
 import cookieParser from "cookie-parser";
 import authRoutes from './Routes/authRouter.js'
+import carRoutes from './Routes/carRoute.js'
 
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 dotenv.config()
@@ -21,6 +22,7 @@ app.use(cors({
 }));
 app.use("/api/users" , userRoutes)
 app.use("/api/auth" , authRoutes)
+app.use("/api/cars" , carRoutes)
 ///2FUNcl2F807epOwy
 const PORT = process.env.PORT || 5000
 
