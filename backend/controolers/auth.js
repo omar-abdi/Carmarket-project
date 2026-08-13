@@ -60,3 +60,44 @@ const updateUser = async (req, res) => {
 };
 
 export default updateUser;
+
+
+/// delete user
+const deleteUser = async (req, res) => {
+    try {
+        // 1. Hubi username iyo email
+        
+        // 2. Hubi in user-ku yahay qofka profile-ka leh
+        if (req.user.id!== req.params.id) {
+            return res.status(403).json({
+                message: "You are not authorized to delete this profile",
+            });
+        }
+
+        // 3. User-ka database-ka ka raadi
+        const user = await User.findById(req.params.id);
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found",
+            });
+        }
+
+    //tir tit cookies ka 
+    res.clearCookie('access_token');
+    res.json({
+        success: true,
+        message: "User deleted successfully!",
+      });
+
+    } catch (error) {
+        console.error(error.message );
+
+        return res.status(500).json({
+            message: error.message
+        });
+    }
+};
+        
+
+   
