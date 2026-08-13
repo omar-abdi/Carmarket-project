@@ -27,6 +27,7 @@ export const AppProvider = ({children}) => {
   //Actions 
     const signInStart = () => setLoading(true);
     const updateInStart = () => setLoading(true);
+    const deleteUserInStart = () => setLoading(true);
 
       const signInSuccess = (user) => {
     const nextUser = {
@@ -46,6 +47,13 @@ export const AppProvider = ({children}) => {
     };
     setCurrentUser(nextUser);
     localStorage.setItem('current-user-data', JSON.stringify(nextUser));
+    setLoading(false);
+    setError(null);
+  };
+      const deleteUserSuccess = (user) => {
+   
+    setCurrentUser(null);
+ 
     setLoading(false);
     setError(null);
   };
@@ -75,6 +83,8 @@ export const AppProvider = ({children}) => {
     updateInStart,
     updateSuccess,  
      updateFailure,
+     deleteUserInStart,
+     deleteUserSuccess,
   }
     return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 

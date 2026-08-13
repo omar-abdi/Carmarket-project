@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import User from '../modals/userModel.js';
 
+
 const updateUser = async (req, res) => {
     try {
         const { username, email, password, avatar } = req.body;
@@ -63,7 +64,7 @@ export default updateUser;
 
 
 /// delete user
-const deleteUser = async (req, res) => {
+   export const deleteUser = async (req, res) => {
     try {
         // 1. Hubi username iyo email
         
@@ -75,6 +76,8 @@ const deleteUser = async (req, res) => {
         }
 
         // 3. User-ka database-ka ka raadi
+        
+
         const user = await User.findById(req.params.id);
 
         if (!user) {

@@ -5,7 +5,7 @@ import { useAppContext } from "../context/AppContext";
 import {toast , ToastContainer} from 'react-toastify'
 
 function Profile() {
-  const { currentUser  , updateSuccess, updateFailure, updateInStart } = useAppContext();
+  const { currentUser  , updateSuccess, updateFailure, updateInStart , deleteUserInStart , deleteUserSuccess } = useAppContext();
   const [Image, setImage] = useState(null);
   const [Uploading , setUploading] = useState(false)
   const [formData, setFormData] = useState({});
@@ -78,6 +78,32 @@ function Profile() {
 };
 
 Uploading &&  toast.info("Uploading...")
+
+const handleDelete = async (e)=>{
+  try{
+    deleteUserInStart()
+    const res = await axios.delete(`http://localhost:8000/api/auth/delete/${currentUser._id}` , {
+      withCredentials: true,
+    })
+
+  
+    localStorage.removeItem("current-user-data")
+
+
+
+    const data = res.data;
+    if(data.success){
+      deleteUserSuccess()
+     
+      toast.success("Profile deleted successfully")
+      navigate("/signup")
+    }
+     
+   
+  }catch(err){
+    console.log(err.message)
+  }
+}
 
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
@@ -229,8 +255,10 @@ Uploading &&  toast.info("Uploading...")
           {/* Delete / Logout */}
           <div className="flex justify-between items-center pt-4 border-t border-slate-100">
             <span className="flex items-center gap-1.5 text-sm text-red-500 hover:text-red-600 cursor-pointer transition-colors">
-              <Trash2 size={14} />
-              Delete account
+          
+   <button onClick={handleDelete} className="w-full bg-red-600 text-white font-medium py-2.5 rounded-lg hover:bg-red-700 active:bg-red-800 transition-colors">
+    <Trash2 size={50} /> 
+   </button>
             </span>
 
             <span className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 cursor-pointer transition-colors">
