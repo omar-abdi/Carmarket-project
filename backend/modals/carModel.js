@@ -31,12 +31,13 @@ const carSchema = new mongoose.Schema({
           },
           offer:{
             type:Boolean,
+            default:false,
           },
           mileage:{
               type:Number,
               required:true
              },
-             feulType:{
+             fuelType:{
                  type:String,
                  required:true,
                  enum:["petrol","diesel","electric"]
@@ -44,7 +45,7 @@ const carSchema = new mongoose.Schema({
                 transmission:{
                     type:String,
                     required:true,
-                    enum:["manual","automatic" ,"cvt"]
+                    enum:["manual","automatic","cvt"]
                    },
                    condition:{
                        type:String,
@@ -53,7 +54,7 @@ const carSchema = new mongoose.Schema({
                       },
 
                       imageURL:{
-                          type:String, 
+                          type:String,
                           required:true
                       },
                       location:{
@@ -63,8 +64,7 @@ const carSchema = new mongoose.Schema({
                       type:{
                           type:String,
                           required:true,
-                          anum:["sale", "rent"]
-
+                          enum:["sale", "rent"]
                       }
 
 }, {timestamps: true});

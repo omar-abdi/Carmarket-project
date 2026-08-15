@@ -6,6 +6,7 @@ import SigNup from './pages/SigNup'
 import SingIn from './pages/SingIn'
 import Header from './componets/Header'
 import PriveRoute from './componets/PriveRoute'
+import CarListing from './pages/CarListing'
 function App() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-950">
@@ -18,6 +19,7 @@ function App() {
           <Route path="/login" element={<SingIn />} />
           <Route element={<PriveRoute />}>
      <Route path="/profile" element={<Profile />} />
+            <Route path="/carListing" element={<CarListing />} />
           </Route>
         </Routes>
       </main>
