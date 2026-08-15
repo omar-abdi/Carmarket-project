@@ -61,11 +61,17 @@ const carSchema = new mongoose.Schema({
                           type:String,
                           required:true
                       },
+                      sellerRef:{
+                        type: String,
+                        required: true,
+
+                      },
                       type:{
                           type:String,
                           required:true,
                           enum:["sale", "rent"]
                       }
+
 
 }, {timestamps: true});
 const Car = mongoose.model("car", carSchema);

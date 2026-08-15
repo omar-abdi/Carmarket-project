@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import User from '../modals/userModel.js';
-
+import Car from '../modals/carModel.js';
 
 const updateUser = async (req, res) => {
     try {
@@ -104,3 +104,27 @@ export default updateUser;
         
 
    
+export const getListing = async (req, res) => {
+    try {
+
+      if(req.user.id === req.params.id){
+         const listings = await Car.find(
+        {
+             sellerRef:req.params.id
+        }
+       );
+        res.status(200).json(listings);
+      }else{
+        return res.status(403).json({
+            message: "You are not authorized to view this listing",
+          });   
+      }
+     
+    } catch (error) {
+        console.error(error);
+
+        return res.status(500).json({
+            message: error.message
+        });
+    }
+};

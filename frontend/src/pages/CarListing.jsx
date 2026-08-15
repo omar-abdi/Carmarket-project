@@ -9,8 +9,10 @@ import {
 import {useState, useRef} from 'react'
 import axios from 'axios'
 import {toast , ToastContainer} from 'react-toastify'
+import {useAppContext} from '../context/AppContext.jsx'
 
 function CarListing() {
+  const {currentUser} = useAppContext();
     const fileInput = useRef(null);
     const [image, setImage] = useState("")
     const [uploadError, setUploadError] = useState(null)
@@ -26,6 +28,7 @@ function CarListing() {
       transmission:"automatic",
       condition:"new",
       type:"sale",
+      sellerRef:currentUser._id,
       price:"0",
       discount:"0",
       offer:false,
