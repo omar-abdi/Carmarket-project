@@ -3,7 +3,7 @@ import { Camera, Eye, EyeOff, User, Mail, Lock, LogOut, Trash2 } from "lucide-re
 import axios from "axios"
 import { useAppContext } from "../context/AppContext";
 import {toast , ToastContainer} from 'react-toastify'
-
+import { Link } from "react-router-dom";
 function Profile() {
   const { currentUser  , updateSuccess, updateFailure, updateInStart , deleteUserInStart , deleteUserSuccess } = useAppContext();
   const [Image, setImage] = useState(null);
@@ -96,7 +96,7 @@ const handleDelete = async (e)=>{
       deleteUserSuccess()
      
       toast.success("Profile deleted successfully")
-      navigate("/signup")
+      navigate("/dashboard")
     }
      
    
@@ -267,6 +267,14 @@ const handleDelete = async (e)=>{
             </span>
           </div>
         </form>
+        <Link to="/listing/:id">
+          <button
+            type="button"
+            className="w-full bg-indigo-600 text-white font-medium py-2.5 rounded-lg hover:bg-indigo-700 active:bg-indigo-800 transition-colors"
+          >
+            View your cars
+          </button>
+        </Link>
       </div>
       <ToastContainer/>
     </div>

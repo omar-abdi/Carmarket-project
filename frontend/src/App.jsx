@@ -8,6 +8,9 @@ import Header from './componets/Header'
 import PriveRoute from './componets/PriveRoute'
 import CarListing from './pages/CarListing'
 import UpdateListing from './pages/UpdateListing'
+import Listing from './pages/Listing'
+
+import DashboardLayout from './pages/DashboardLayout'
 function App() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-950">
@@ -20,8 +23,28 @@ function App() {
           <Route path="/login" element={<SingIn />} />
           <Route element={<PriveRoute />}>
      <Route path="/profile" element={<Profile />} />
-            <Route path="/carListing" element={<CarListing />} />
+           
             <Route path="/updateListing/:id" element={<UpdateListing />} /> 
+         
+              
+            <Route
+              path="/dashboard"
+              element={<DashboardLayout />}
+            >
+
+              <Route path="/dashboard/profile" element={<Profile />} />
+               <Route path="/dashboard/carListing" element={<CarListing />} />
+                    <Route path="/dashboard/listing/:id" element={<Listing />} />
+            </Route>
+
+
+
+
+
+
+
+
+              
           </Route>
         </Routes>
       </main>
