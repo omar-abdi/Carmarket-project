@@ -14,6 +14,7 @@ const createCar = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+export default createCar;
 
 export const getCarById = async (req, res) => {
   try {
@@ -74,4 +75,15 @@ export const updateCar = async (req, res) => {
   }
 };
 
-export default createCar;
+// get all cars
+export const getAllCars = async (req, res) => {
+  try {
+    const cars = await Car.find();
+    res.status(200).json(cars);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+// get car by id
