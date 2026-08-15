@@ -256,9 +256,7 @@ const handleDelete = async (e)=>{
           <div className="flex justify-between items-center pt-4 border-t border-slate-100">
             <span className="flex items-center gap-1.5 text-sm text-red-500 hover:text-red-600 cursor-pointer transition-colors">
           
-   <button onClick={handleDelete} className="w-full bg-red-600 text-white font-medium py-2.5 rounded-lg hover:bg-red-700 active:bg-red-800 transition-colors">
-    <Trash2 size={50} /> 
-   </button>
+  
             </span>
 
             <span className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 cursor-pointer transition-colors">
@@ -267,12 +265,12 @@ const handleDelete = async (e)=>{
             </span>
           </div>
         </form>
-        <Link to="/listing/:id">
+        <Link to="/dashboard">
           <button
-            type="button"
-            className="w-full bg-indigo-600 text-white font-medium py-2.5 rounded-lg hover:bg-indigo-700 active:bg-indigo-800 transition-colors"
+            type="/dashboard"
+            className="w-full bg-indigo-600 text-white font-medium py-2.5 rounded-lg hover:bg-indigo-700 active:bg-indigo-800 transition-colors m-4"
           >
-            View your cars
+            go your dashboard
           </button>
         </Link>
       </div>
