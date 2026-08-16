@@ -33,7 +33,8 @@ function CarListing() {
       discount:"0",
       offer:false,
       location:"",
-      imageURL:""
+      imageURL:"",
+      owner: currentUser.username
     })
 
   const handleChangeData = (e) => {

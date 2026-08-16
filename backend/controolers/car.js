@@ -1,4 +1,5 @@
 import Car from '../modals/carModel.js';
+import User from '../modals/userModel.js';
 
 const createCar = async (req, res) => {
   try {
@@ -79,7 +80,21 @@ export const updateCar = async (req, res) => {
 export const getAllCars = async (req, res) => {
   try {
     const cars = await Car.find();
-    res.status(200).json(cars);
+
+    const carsWithSeller = await Promise.all(
+      cars.map(async (car) => {
+        const user = await User.findById(car.sellerRef).select("username");
+
+        return {
+          ...car.toObject(),
+          sellerName: user?.username || "Unknown seller",
+        };
+      })
+    );
+
+    res.status(200).json({
+      data: carsWithSeller,
+    });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Server error" });

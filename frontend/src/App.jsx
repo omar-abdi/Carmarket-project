@@ -9,6 +9,7 @@ import PriveRoute from './componets/PriveRoute'
 import CarListing from './pages/CarListing'
 import UpdateListing from './pages/UpdateListing'
 import Listing from './pages/Listing'
+import AllListing from './pages/AllListing'
 
 import DashboardLayout from './pages/DashboardLayout'
 function App() {
@@ -21,6 +22,7 @@ function App() {
      
           <Route path="/sigNup" element={<SigNup />} />
           <Route path="/login" element={<SingIn />} />
+          <Route path="/allListing" element={<AllListing />} />
           <Route element={<PriveRoute />}>
      <Route path="/profile" element={<Profile />} />
            
