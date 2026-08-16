@@ -259,10 +259,7 @@ const handleDelete = async (e)=>{
   
             </span>
 
-            <span className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 cursor-pointer transition-colors">
-              <LogOut size={14} />
-              Logout
-            </span>
+           
           </div>
         </form>
         <Link to="/dashboard">
