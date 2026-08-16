@@ -41,8 +41,10 @@ function Listing() {
         }
     }, [id]);
 
-    const handleUpdate = (carId) => {
-        navigate(`/listing/edit/${carId}`);
+    const handleUpdate = (car) => {
+        navigate(`/dashboard/updateListing/${car._id}`, {
+            state: { car },
+        });
     };
 
     const handleDelete = async (carId) => {
@@ -239,9 +241,7 @@ function Listing() {
                             <div className="grid grid-cols-2 gap-3">
 
                                 <button
-                                    onClick={() =>
-                                        handleUpdate(car._id)
-                                    }
+                                    onClick={() => handleUpdate(car)}
                                     className="py-2.5 rounded-lg border border-[#F2B705] text-[#F2B705] font-semibold hover:bg-[#F2B705]/10 transition"
                                 >
                                     Update

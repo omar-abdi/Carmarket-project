@@ -19,13 +19,22 @@ export default createCar;
 
 export const getCarById = async (req, res) => {
   try {
-if(req.user.id === req.params.id){
-      const car = await Car.find({
-        sellerRef:req.params.id
+    const car = await Car.findById(req.params.id);
+
+    if (!car) {
+      return res.status(404).json({ message: "Car not found" });
+    }
+
+    if (req.user.id !== String(car.sellerRef)) {
+      return res.status(403).json({
+        message: "You are not authorized to view this car",
       });
-      res.status(200).json(car);
-}
-   
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: car,
+    });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Server error" });

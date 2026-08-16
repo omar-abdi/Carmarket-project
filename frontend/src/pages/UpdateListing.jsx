@@ -10,10 +10,12 @@ import {useState, useRef, useEffect} from 'react'
 import axios from 'axios'
 import {toast, ToastContainer} from 'react-toastify'
 import {useAppContext} from '../context/AppContext.jsx'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
+
 
 function UpdateListing() {
   const { id } = useParams();
+  const location = useLocation();
   const { currentUser } = useAppContext();
   const fileInput = useRef(null);
   const [image, setImage] = useState("")
@@ -39,13 +41,39 @@ function UpdateListing() {
   })
 
   useEffect(() => {
+    const passedCar = location.state?.car;
+
+    if (passedCar) {
+      setListingData({
+        name: passedCar.name || "",
+        make: passedCar.make || "",
+        model: passedCar.model || "",
+        year: passedCar.year || "2000",
+        mileage: passedCar.mileage || "0",
+        description: passedCar.description || "",
+        fuelType: passedCar.fuelType || "petrol",
+        transmission: passedCar.transmission || "automatic",
+        condition: passedCar.condition || "new",
+        type: passedCar.type || "sale",
+        sellerRef: passedCar.sellerRef || currentUser?._id || "",
+        price: passedCar.price || "0",
+        discount: passedCar.discount || "0",
+        offer: Boolean(passedCar.offer),
+        location: passedCar.location || "",
+        imageURL: passedCar.imageURL || "",
+      });
+
+      setImage(passedCar.imageURL || "");
+      return;
+    }
+
     const fetchCar = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/cars/${id}`, {
+        const response = await axios.get(`http://localhost:8000/api/cars/${id}`, {
           withCredentials: true,
         });
 
-        const car = response.data?.data;
+        const car = response.data?.data || response.data;
 
         if (car) {
           setListingData({
@@ -78,7 +106,7 @@ function UpdateListing() {
     if (id) {
       fetchCar();
     }
-  }, [id, currentUser?._id]);
+  }, [id, currentUser?._id, location.state]);
 
   const handleChangeData = (e) => {
     const { name, value, type, checked } = e.target;
@@ -100,7 +128,7 @@ function UpdateListing() {
         sellerRef: currentUser?._id || listingData.sellerRef,
       };
 
-      const response = await axios.put(`http://localhost:5000/api/cars/update/${id}`, payload, {
+      const response = await axios.put(`http://localhost:8000/api/cars/update/${id}`, payload, {
         withCredentials: true,
       });
 

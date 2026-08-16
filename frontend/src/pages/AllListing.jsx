@@ -149,7 +149,7 @@ function AllListing() {
 
               {/* Condition */}
               <div className="mt-4 flex items-center justify-between border-t border-slate-800 pt-4">
-                <span className="text-xs text-slate-500">
+                <span className="text-xs text-white">
                   Condition
                 </span>
 

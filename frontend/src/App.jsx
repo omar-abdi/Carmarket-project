@@ -26,7 +26,7 @@ function App() {
           <Route element={<PriveRoute />}>
      <Route path="/profile" element={<Profile />} />
            
-            <Route path="/updateListing/:id" element={<UpdateListing />} /> 
+         
          
               
             <Route
@@ -37,6 +37,7 @@ function App() {
               <Route path="/dashboard/profile" element={<Profile />} />
                <Route path="/dashboard/carListing" element={<CarListing />} />
                     <Route path="/dashboard/listing/:id" element={<Listing />} />
+                       <Route path="/dashboard/updateListing/:id" element={<UpdateListing />} /> 
             </Route>
 
 
