@@ -9,7 +9,7 @@ import {
   CarFront,
   UserRound,
 } from "lucide-react";
-
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 function AllListing() {
@@ -175,11 +175,12 @@ function AllListing() {
               )}
 
               {/* Button */}
-              <button
-                className="mt-5 w-full rounded-xl bg-yellow-400 py-3 text-sm font-bold text-slate-950 transition hover:bg-yellow-300 active:scale-[0.98]"
+              <Link
+                to={`/view/${car._id}`}
+                className="mt-5 block w-full rounded-xl bg-yellow-400 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-yellow-300 active:scale-[0.98]"
               >
                 View Details
-              </button>
+              </Link>
             </div>
           </div>
         ))}

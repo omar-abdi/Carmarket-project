@@ -10,7 +10,7 @@ import CarListing from './pages/CarListing'
 import UpdateListing from './pages/UpdateListing'
 import Listing from './pages/Listing'
 import AllListing from './pages/AllListing'
-
+import VeiwList from './pages/VeiwList'
 import DashboardLayout from './pages/DashboardLayout'
 function App() {
   return (
@@ -23,6 +23,7 @@ function App() {
           <Route path="/sigNup" element={<SigNup />} />
           <Route path="/login" element={<SingIn />} />
           <Route path="/allListing" element={<AllListing />} />
+          <Route path="/view/:id" element={<VeiwList />} />
           <Route element={<PriveRoute />}>
      <Route path="/profile" element={<Profile />} />
            

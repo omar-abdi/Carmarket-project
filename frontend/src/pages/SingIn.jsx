@@ -48,7 +48,7 @@ function Singin() {
       toast.success("You are logged in")
          signInSuccess(data.data)
          
-      navigate('/')
+      navigate('/dashboard')
       setFormData({
      
         email :"",
