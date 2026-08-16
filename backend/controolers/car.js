@@ -40,6 +40,26 @@ export const getCarById = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
+export const getCarByIdPublic = async (req, res) => {
+  try {
+    const car = await Car.findById(req.params.id);
+
+    if (!car) {
+      return res.status(404).json({ message: "Car not found" });
+    }
+
+   
+
+    return res.status(200).json({
+      success: true,
+      data: car,
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
 
 export const updateCar = async (req, res) => {
   try {
