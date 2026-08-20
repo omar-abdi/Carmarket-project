@@ -29,11 +29,7 @@ function Header() {
             <span className="h-1.5 w-1.5 rounded-full bg-[#F5A623] group-hover:animate-ping" />
           </Link>
       
-          <div className="flex items-center gap-2 rounded-md border border-[#F5A623] px-4 py-2 text-sm bg-white">
           
-            <input type="text" placeholder="Search" className="w-full " />
-         <button className="flex items-center gap-2 rounded-md border border-[#F5A623] px-4 py-2 text-sm bg-white">search</button>
-          </div>
           {/* Nav-ka desktop-ka */}
           <nav className="hidden md:flex items-center gap-8">
             <Link
@@ -41,6 +37,13 @@ function Header() {
               className="relative text-sm text-[#B9BEC7] hover:text-white transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-[#F5A623] after:transition-all after:duration-300 hover:after:w-full"
             >
             Home
+             
+            </Link>
+            <Link
+              to="/about"
+              className="relative text-sm text-[#B9BEC7] hover:text-white transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-[#F5A623] after:transition-all after:duration-300 hover:after:w-full"
+            >
+            About 
              
             </Link>
             <Link

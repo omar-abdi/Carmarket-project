@@ -12,6 +12,7 @@ import Listing from './pages/Listing'
 import AllListing from './pages/AllListing'
 import VeiwList from './pages/VeiwList'
 import DashboardLayout from './pages/DashboardLayout'
+import About from './pages/About'
 function App() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-950">
@@ -22,6 +23,7 @@ function App() {
      
           <Route path="/sigNup" element={<SigNup />} />
           <Route path="/login" element={<SingIn />} />
+          <Route path="/about" element={<About />} />
           <Route path="/allListing" element={<AllListing />} />
           <Route path="/view/:id" element={<VeiwList />} />
           <Route element={<PriveRoute />}>
