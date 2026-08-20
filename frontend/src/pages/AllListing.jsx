@@ -8,6 +8,7 @@ import {
   Settings2,
   CarFront,
   UserRound,
+  Search,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import axios from "axios"
@@ -16,8 +17,17 @@ import Contact from "../componets/Contact"
 
 function AllListing() {
   const [listing, setListing] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 const {currentUser} = useAppContext()
 const [showContact, setShowContact] = useState(false)
+  const filteredListing = listing.filter((car) => {
+    const query = searchTerm.trim().toLowerCase();
+    if (!query) return true;
+
+    return [car.name, car.make, car.model]
+      .filter(Boolean)
+      .some((value) => value.toLowerCase().includes(query));
+  });
   useEffect(() => {
     const getListing = async () => {
       try {
@@ -31,7 +41,7 @@ const [showContact, setShowContact] = useState(false)
           ? res.data
           : [];
 
-        console.log("Cars:", cars);
+       
         setListing(cars);
       } catch (error) {
         console.error(error);
@@ -62,12 +72,28 @@ const [showContact, setShowContact] = useState(false)
           </div>
         </div>
 
-        <div className="mt-6 h-px bg-slate-800" />
+        <div className="mt-6 flex flex-col gap-4 border-t border-slate-800 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-slate-500">
+            {filteredListing.length} {filteredListing.length === 1 ? "car" : "cars"} found
+          </p>
+
+          <label className="relative block w-full sm:max-w-sm">
+            <span className="sr-only text-white font-bold">Search cars by name</span>
+            <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+            <input
+              type="search"
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+              placeholder="Search car name..."
+              className="bg-white w-full text-black    rounded-xl border border-slate-800  py-3 pl-11 pr-4 text-lg outline-none transition placeholder focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20"
+            />
+          </label>
+        </div>
       </div>
 
       {/* Listings */}
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {listing.map((car) => (
+        {filteredListing.map((car) => (
           <div
             key={car._id}
             className="group overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 shadow-xl shadow-black/20 transition duration-300 hover:-translate-y-1 hover:border-yellow-500/50"
@@ -105,7 +131,7 @@ const [showContact, setShowContact] = useState(false)
                     </p>
 
                     <p className="max-w-[190px] truncate text-xs font-semibold text-yellow-400">
-                      {car.sellerRef}
+                    
                     </p>
                   </div>
                 </div>
@@ -193,16 +219,18 @@ const [showContact, setShowContact] = useState(false)
       </div>
 
       {/* Empty */}
-      {listing.length === 0 && (
+      {filteredListing.length === 0 && (
         <div className="mx-auto mt-20 max-w-md text-center">
           <CarFront className="mx-auto mb-4 h-12 w-12 text-slate-700" />
 
           <h2 className="text-xl font-semibold text-slate-300">
-            No listings available
+            {searchTerm ? "No matching cars found" : "No listings available"}
           </h2>
 
           <p className="mt-2 text-sm text-slate-500">
-            There are currently no cars listed for sale.
+            {searchTerm
+              ? "Try another car name, make, or model."
+              : "There are currently no cars listed for sale."}
           </p>
         </div>
       )}
