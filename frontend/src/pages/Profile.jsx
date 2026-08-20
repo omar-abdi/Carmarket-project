@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Camera, Eye, EyeOff, User, Mail, Lock, LogOut, Trash2 } from "lucide-react";
+import { ArrowLeft, Camera, Check, Eye, EyeOff, User, Mail, Lock, LogOut, ShieldCheck, Trash2 } from "lucide-react";
 import axios from "axios"
 import { useAppContext } from "../context/AppContext";
 import {toast , ToastContainer} from 'react-toastify'
@@ -12,7 +12,6 @@ function Profile() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  // consle log
  
   const [showPassword, setShowPassword] = useState(false);
   const fileInput = useRef(null);
@@ -23,7 +22,7 @@ function Profile() {
     if (!file) {
       return;
     }
- setUploading(true);
+    setUploading(true);
     toast.info("Uploading...");
     const data = new FormData();
 
@@ -36,7 +35,6 @@ function Profile() {
       {
         method: "POST",
         body: data,
-        
       }
     );
 
@@ -51,8 +49,6 @@ function Profile() {
 
     const res = await axios.put(
       `http://localhost:8000/api/auth/update/${currentUser._id}`, formData,
-
-     
       {
         withCredentials: true,
       }
@@ -86,193 +82,90 @@ const handleDelete = async (e)=>{
       withCredentials: true,
     })
 
-  
     localStorage.removeItem("current-user-data")
-
-
 
     const data = res.data;
     if(data.success){
       deleteUserSuccess()
-     
       toast.success("Profile deleted successfully")
       navigate("/dashboard")
     }
-     
-   
+
   }catch(err){
     console.log(err.message)
   }
 }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-100 p-8">
-
-        <form  onSubmit={handleSubmit} className="space-y-6">
-          {/* Header */}
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-slate-800">
-              Edit Profile
-            </h1>
-
-            <p className="text-sm text-slate-500 mt-1">
-              Update your photo and personal details
-            </p>
-          </div>
-
-          {/* Avatar */}
-          <div className="flex justify-center">
-            <div className="relative group">
-              <input onChange={handlefille} type="file" ref={fileInput} hidden />
-
-              <img
-                alt="profile"
-                src={Image ? Image : currentUser?.avatar}
-                className="w-24 h-24 rounded-full object-cover ring-4 ring-indigo-50 cursor-pointer transition-transform duration-200 group-hover:scale-105"
-                onClick={() => fileInput.current.click()}
-              />
-
-              <div
-                onClick={() => fileInput.current.click()}
-                className="absolute inset-0 rounded-full bg-black/0 group-hover:bg-black/30 flex items-center justify-center transition-colors duration-200 cursor-pointer"
-              >
-                <Camera
-                  size={20}
-                  className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                />
-              </div>
-
-              <button
-                type="button"
-                onClick={() => fileInput.current.click()}
-                className="absolute bottom-0 right-0 bg-indigo-600 text-white p-2 rounded-full shadow-md hover:bg-indigo-700 transition-colors ring-2 ring-white"
-              >
-                <Camera size={14} />
-              </button>
-            </div>
-          </div>
-
-          <div className="space-y-5">
-            {/* Name */}
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-slate-700 mb-1.5"
-              >
-                Full Name
-              </label>
-
-              <div className="relative">
-                <User
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-                  size={18}
-                />
-
-                <input
-                
-                  id="name"
-                  type="text"
-                  name="username"
-                  onChange={handleChange}
-                  defaultValue={currentUser.username}
-                  placeholder="Enter your name"
-                  className="w-full pl-10 pr-4 py-2.5 border border-slate-200 rounded-lg text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-                />
-              </div>
-            </div>
-
-            {/* Email */}
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-slate-700 mb-1.5"
-              >
-                Email Address
-              </label>
-
-              <div className="relative">
-                <Mail
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-                  size={18}
-                />
-
-                <input
-                  id="email"
-                  type="email"
-                  name="email"
-                  onChange={handleChange}
-                  placeholder="you@example.com"
-                  defaultValue={currentUser.email}
-                  className="w-full pl-10 pr-4 py-2.5 border border-slate-200 rounded-lg text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-                />
-              </div>
-            </div>
-
-            {/* Password */}
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-slate-700 mb-1.5"
-              >
-                Password
-              </label>
-
-              <div className="relative">
-                <Lock
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-                  size={18}
-                />
-
-                <input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  onChange={handleChange}
-                  placeholder="Enter new password"
-                  className="w-full pl-10 pr-10 py-2.5 border border-slate-200 rounded-lg text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-                />
-
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
-                >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Submit */}
-          <button
-            type="submit"
-            className="w-full bg-indigo-600 text-white font-medium py-2.5 rounded-lg hover:bg-indigo-700 active:bg-indigo-800 transition-colors"
-          >
-            Update Profile
-          </button>
-
-          {/* Delete / Logout */}
-          <div className="flex justify-between items-center pt-4 border-t border-slate-100">
-            <span className="flex items-center gap-1.5 text-sm text-red-500 hover:text-red-600 cursor-pointer transition-colors">
-          
-  
-            </span>
-
-           
-          </div>
-        </form>
-        <Link to="/dashboard">
-          <button
-            type="/dashboard"
-            className="w-full bg-indigo-600 text-white font-medium py-2.5 rounded-lg hover:bg-indigo-700 active:bg-indigo-800 transition-colors m-4"
-          >
-            go your dashboard
-          </button>
+    <main className="min-h-screen bg-[#f5f2ec] px-4 py-8 text-[#202329] sm:px-8 lg:px-12">
+      <div className="mx-auto max-w-6xl">
+        <Link to="/dashboard" className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-[#626873] transition-colors hover:text-[#202329]">
+          <ArrowLeft size={17} /> Back to dashboard
         </Link>
+
+        <div className="grid overflow-hidden border border-[#dedbd4] bg-white shadow-[0_24px_70px_rgba(32,35,41,0.10)] lg:grid-cols-[0.8fr_1.2fr]">
+          <aside className="relative overflow-hidden bg-[#202329] px-7 py-9 text-white sm:px-10 lg:px-12 lg:py-12">
+            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full border-[36px] border-[#f5a623]/20" />
+            <div className="relative flex h-full flex-col justify-between gap-12">
+              <div>
+                <div className="mb-8 flex h-12 w-12 items-center justify-center rounded-xl bg-[#f5a623] text-[#202329]">
+                  <User size={22} strokeWidth={2.5} />
+                </div>
+                <p className="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-[#f5a623]">Account settings</p>
+                <h1 className="max-w-xs text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl">Make your profile yours.</h1>
+                <p className="mt-5 max-w-sm text-sm leading-6 text-[#b9bec7]">Keep your details current so every car-market interaction feels personal and secure.</p>
+              </div>
+
+              <div className="border-t border-white/10 pt-5 text-sm text-[#b9bec7]">
+                <div className="flex items-center gap-2 text-white"><ShieldCheck size={17} className="text-[#f5a623]" /> Your information is private</div>
+                <p className="mt-2 text-xs leading-5">Only your public profile details are shown to other members.</p>
+              </div>
+            </div>
+          </aside>
+
+          <section className="px-6 py-8 sm:px-10 sm:py-10 lg:px-14 lg:py-12">
+            <form onSubmit={handleSubmit} className="space-y-7">
+              <div className="flex flex-col gap-5 border-b border-[#ece9e3] pb-7 sm:flex-row sm:items-center">
+                <div className="relative h-24 w-24 shrink-0 group">
+                  <input onChange={handlefille} type="file" ref={fileInput} hidden />
+                  <img alt="profile" src={Image ? Image : currentUser?.avatar} className="h-full w-full rounded-2xl object-cover ring-1 ring-[#dedbd4] transition-transform group-hover:scale-[1.03]" onClick={() => fileInput.current.click()} />
+                  <button type="button" aria-label="Change profile photo" onClick={() => fileInput.current.click()} className="absolute -bottom-2 -right-2 flex h-9 w-9 items-center justify-center rounded-lg bg-[#f5a623] text-[#202329] shadow-lg transition-transform hover:scale-105"><Camera size={16} /></button>
+                  {Uploading && <span className="absolute -bottom-8 left-0 whitespace-nowrap text-xs font-semibold text-[#ba7610]">Uploading...</span>}
+                </div>
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#ba7610]">Personal profile</p>
+                  <h2 className="mt-1 text-2xl font-black tracking-tight">Edit your details</h2>
+                  <p className="mt-1 text-sm text-[#7a8089]">Your name and email help buyers recognize you.</p>
+                </div>
+              </div>
+
+              <div className="space-y-5">
+                <div>
+                  <label htmlFor="name" className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-[#626873]">Full name</label>
+                  <div className="relative"><User className="absolute left-4 top-1/2 -translate-y-1/2 text-[#9da2aa]" size={18} /><input id="name" type="text" name="username" onChange={handleChange} defaultValue={currentUser.username} placeholder="Enter your name" className="w-full border border-[#dedbd4] bg-[#faf9f6] py-3.5 pl-11 pr-4 text-[#202329] outline-none transition-colors placeholder:text-[#a6abb2] focus:border-[#f5a623] focus:bg-white" /></div>
+                </div>
+                <div>
+                  <label htmlFor="email" className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-[#626873]">Email address</label>
+                  <div className="relative"><Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-[#9da2aa]" size={18} /><input id="email" type="email" name="email" onChange={handleChange} placeholder="you@example.com" defaultValue={currentUser.email} className="w-full border border-[#dedbd4] bg-[#faf9f6] py-3.5 pl-11 pr-4 text-[#202329] outline-none transition-colors placeholder:text-[#a6abb2] focus:border-[#f5a623] focus:bg-white" /></div>
+                </div>
+                <div>
+                  <label htmlFor="password" className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-[#626873]">New password</label>
+                  <div className="relative"><Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-[#9da2aa]" size={18} /><input id="password" type={showPassword ? "text" : "password"} name="password" onChange={handleChange} placeholder="Enter new password" className="w-full border border-[#dedbd4] bg-[#faf9f6] py-3.5 pl-11 pr-12 text-[#202329] outline-none transition-colors placeholder:text-[#a6abb2] focus:border-[#f5a623] focus:bg-white" /><button type="button" aria-label={showPassword ? "Hide password" : "Show password"} onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#858b94] transition-colors hover:text-[#202329]">{showPassword ? <EyeOff size={18} /> : <Eye size={18} />}</button></div>
+                </div>
+              </div>
+
+              <button type="submit" className="flex w-full items-center justify-center gap-2 bg-[#202329] py-3.5 text-sm font-bold text-white transition-colors hover:bg-[#f5a623] hover:text-[#202329]"><Check size={17} /> Save changes</button>
+
+              <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[#ece9e3] pt-6">
+                <button type="button" onClick={handleDelete} className="flex items-center gap-2 text-sm font-semibold text-[#b94b43] transition-colors hover:text-[#8f2923]"><Trash2 size={16} /> Delete account</button>
+                <button type="button" className="flex items-center gap-2 text-sm font-semibold text-[#626873] transition-colors hover:text-[#202329]"><LogOut size={16} /> Log out</button>
+              </div>
+            </form>
+          </section>
+        </div>
       </div>
-      <ToastContainer/>
-    </div>
+      <ToastContainer />
+    </main>
   );
 }
 

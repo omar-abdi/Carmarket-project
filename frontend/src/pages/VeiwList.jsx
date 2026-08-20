@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-
+import {useAppContext} from "../context/AppContext"
+import Contact from "../componets/Contact"
 const VeiwList = () => {
   const { id } = useParams();
   const [carData, setCarData] = useState(null);
-
+const {currentUser} = useAppContext()
+const [showContact, setShowContact] = useState(false)
   useEffect(() => {
     const getCar = async () => {
       try {
@@ -72,7 +74,10 @@ const VeiwList = () => {
             <p className="mt-2 leading-7 text-slate-300">{carData.description}</p>
           </div>
         </div>
+        
+        
       </div>
+    
     </div>
   );
 };

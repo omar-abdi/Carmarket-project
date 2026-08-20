@@ -10,11 +10,14 @@ import {
   UserRound,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axios from "axios"
+import {useAppContext} from "../context/AppContext"  
+import Contact from "../componets/Contact"
 
 function AllListing() {
   const [listing, setListing] = useState([]);
-
+const {currentUser} = useAppContext()
+const [showContact, setShowContact] = useState(false)
   useEffect(() => {
     const getListing = async () => {
       try {
@@ -181,6 +184,9 @@ function AllListing() {
               >
                 View Details
               </Link>
+              {currentUser && currentUser._id !== car.sellerRef && <button  onClick={()=>setShowContact(true)}
+              className="mt-5 block w-full rounded-xl bg-yellow-400 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-yellow-300 active:scale-[0.98]">Contact Seller</button>}
+{showContact && <Contact car ={car._id}/>}
             </div>
           </div>
         ))}

@@ -81,3 +81,27 @@ res.cookie('access_token' , token , {
         res.status(500).json({ message: 'Server error' });
     }
 }
+
+
+
+//getUsr 
+export const getUsr = async (req , res)=>{
+try {
+    
+    const user = await User.findById(req.params.id);
+    if(!user){
+        return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json({
+        success: true,
+        message: 'User fetched successfully',
+        data : user
+    });
+   
+} catch(err){
+    console.error(err.message);
+   
+    res.status(500).json({ message: 'Server error' });
+}
+}
+//updateUsr
