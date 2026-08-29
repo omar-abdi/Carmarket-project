@@ -2,9 +2,7 @@ import React from 'react'
 import {Link} from "react-router-dom"
 import axios from 'axios'
 import {useEffect , useState} from 'react'
-import {useParams} from 'react-router-dom'
 function Contact  ({car}) {
-    const {id} = useParams()
     const [message, setMessage] = useState("")
     const [owner, setOwner] = useState(false)
     const handleChange = (e) => {
@@ -27,15 +25,19 @@ getOwner()
     },[car.sellerRef])
   return (
     <>
-    {owner &&(
+    {owner && (
         <div className="mt-5 block w-full rounded-xl bg-yellow-400 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-yellow-300 active:scale-[0.98]">
-      <h2>Contact Seller</h2>  
+      <h2>Contact Seller</h2>
   Contact <span>{owner?.username}</span>
-s
-  <textArea className="mt-5 block w-full rounded-xl bg-yellow-400 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-yellow-300 active:scale-[0.98]">
-    <input    onChange={handleChange} value={message}
-     name="message" type="text" id="message" placeholder="send message here" required></input>
-  </textArea> 
+  <textarea
+    onChange={handleChange}
+    value={message}
+    name="message"
+    id="message"
+    placeholder="send message here"
+    required
+    className="mt-5 block min-h-28 w-full rounded-xl border border-yellow-300 bg-white p-3 text-left text-sm font-medium text-slate-950 outline-none"
+  />
   <Link to ={`mailto: ${owner.email}`} className="mt-5 block w-full rounded-xl bg-yellow-400 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-yellow-300 active:scale-[0.98]">Send Email</Link>
     </div>
     )}
