@@ -6,8 +6,8 @@ import Contact from "../componets/Contact"
 const VeiwList = () => {
   const { id } = useParams();
   const [carData, setCarData] = useState(null);
+  const [showContact, setShowContact] = useState(false);
 const {currentUser} = useAppContext()
-const [showContact, setShowContact] = useState(false)
   useEffect(() => {
     const getCar = async () => {
       try {
@@ -73,9 +73,22 @@ const [showContact, setShowContact] = useState(false)
             <p className="text-sm text-slate-400">Description</p>
             <p className="mt-2 leading-7 text-slate-300">{carData.description}</p>
           </div>
+          {/* {currentUser && currentUser._id !== carData.sellerRef && (
+            <>
+              {!showContact && (
+                <button
+                  type="button"
+                  onClick={() => setShowContact(true)}
+                  className="mt-6 block w-full rounded-xl bg-yellow-400 py-3.5 text-center text-sm font-bold text-slate-950 transition hover:bg-yellow-300 active:scale-[0.98]"
+                >
+                  Contact Seller
+                </button>
+              )}
+
+              {showContact && <Contact car={carData} />} */}
+            {/* </>
+          )} */}
         </div>
-        
-        
       </div>
     
     </div>

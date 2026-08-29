@@ -11,14 +11,10 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useAppContext } from "../context/AppContext";
-import Contact from "../componets/Contact";
 
 function AllListing() {
   const [listing, setListing] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const { currentUser } = useAppContext();
-  const [showContact, setShowContact] = useState(null);
 
   const filteredListing = listing.filter((car) => {
     const query = searchTerm.trim().toLowerCase();
@@ -238,20 +234,6 @@ function AllListing() {
               >
                 View Details
               </Link>
-
-              {/* Contact */}
-              {currentUser &&
-                currentUser._id !== car.sellerRef && (
-                  <button
-                    onClick={() => setShowContact(car._id)}
-                    className="mt-3 block w-full rounded-xl border border-yellow-400 bg-transparent py-3.5 text-center text-sm font-bold text-yellow-400 transition hover:bg-yellow-400 hover:text-slate-950 active:scale-[0.98]"
-                  >
-                    Contact Seller
-                  </button>
-                )}
-
-              {/* IMPORTANT: car object, not car._id */}
-              {showContact && <Contact car={car} />}
 
             </div>
           </div>

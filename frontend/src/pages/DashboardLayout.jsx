@@ -112,7 +112,7 @@ function DashboardLayout() {
 
             {open && (
               <span className="font-medium">
-                Logout
+              
               </span>
             )}
           </button>

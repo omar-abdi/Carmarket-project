@@ -48,9 +48,13 @@ function Profile() {
     updateInStart();
 
     const res = await axios.put(
-      `http://localhost:8000/api/auth/update/${currentUser._id}`, formData,
+      `http://localhost:8000/api/auth/update/${currentUser._id}`, 
       {
-        withCredentials: true,
+        ...formData,
+        avatar: Image || currentUser?.avatar
+      },
+      {
+        withCredentials: true
       }
     );
 
@@ -65,7 +69,7 @@ function Profile() {
 
   } catch (error) {
     console.log(error.response?.data || error.message);
-    toast.error("Something went wrong")
+    toast.error(error.response?.data?.message || error.message || "Something went wrong")
 
     updateFailure(
       error.response?.data?.message || error.message
@@ -157,8 +161,7 @@ const handleDelete = async (e)=>{
               <button type="submit" className="flex w-full items-center justify-center gap-2 bg-[#202329] py-3.5 text-sm font-bold text-white transition-colors hover:bg-[#f5a623] hover:text-[#202329]"><Check size={17} /> Save changes</button>
 
               <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[#ece9e3] pt-6">
-                <button type="button" onClick={handleDelete} className="flex items-center gap-2 text-sm font-semibold text-[#b94b43] transition-colors hover:text-[#8f2923]"><Trash2 size={16} /> Delete account</button>
-                <button type="button" className="flex items-center gap-2 text-sm font-semibold text-[#626873] transition-colors hover:text-[#202329]"><LogOut size={16} /> Log out</button>
+                <button type="button" onClick={handleDelete} className="flex items-center gap-2 text-sm font-semibold text-[#b94b43] transition-colors hover:text-[#8f2923]"><Trash2 size={16} /> log out</button>
               </div>
             </form>
           </section>
