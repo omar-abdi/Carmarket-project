@@ -9,6 +9,7 @@ import authRoutes from './Routes/authRouter.js'
 import carRoutes from './Routes/carRoute.js'
 
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
+
 dotenv.config()
 const app = express()
 app.use(cookieParser());

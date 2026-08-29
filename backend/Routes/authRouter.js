@@ -1,7 +1,7 @@
 import {Router} from 'express';
 import {protectRoute} from '../utillas/protectRoute.js';
 import updateUser from '../controolers/auth.js';
-import {deleteUser , getListing} from '../controolers/auth.js';
+import {deleteUser , getListing ,deleteListing} from '../controolers/auth.js';
 import {getUsr} from '../controolers/userControoller.js';
 
 const router = Router();
@@ -10,6 +10,7 @@ const router = Router();
  router.get("/listing/:id" , protectRoute , getListing)
  router.get('/:id' ,  protectRoute , getUsr)
  
+ router.delete("/listing/:id" , protectRoute , deleteListing)
 
 
 

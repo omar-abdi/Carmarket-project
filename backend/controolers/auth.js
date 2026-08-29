@@ -86,6 +86,7 @@ export default updateUser;
             });
         }
 
+
     //tir tit cookies ka 
     res.clearCookie('access_token');
     res.json({
@@ -127,4 +128,34 @@ export const getListing = async (req, res) => {
             message: error.message
         });
     }
+};
+export const deleteListing = async (req, res) => {
+  try {
+    const listing = await Car.findById(req.params.id);
+
+    if (!listing) {
+      return res.status(404).json({
+        message: "Listing not found",
+      });
+    }
+
+    // Hubi in user-ka hadda login-gareysan yahay
+    // uu yahay qofkii listing-ka sameeyay
+    if (listing.sellerRef.toString() !== req.user.id.toString()) {
+      return res.status(403).json({
+        message: "You are not authorized to delete this listing",
+      });
+    }
+
+    const deletedListing = await Car.findByIdAndDelete(req.params.id);
+
+    return res.status(200).json(deletedListing);
+
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
 };

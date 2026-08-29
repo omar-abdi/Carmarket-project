@@ -130,4 +130,4 @@ export const getAllCars = async (req, res) => {
   }
 };
 
-// get car by id
+
