@@ -54,7 +54,7 @@ function Header() {
              
             </Link>
             <Link
-  to={currentUser ? "/profile" : "/sign-in"}
+  to={currentUser ? "/profile" : "/login"}
   className="relative text-sm text-[#B9BEC7] hover:text-white transition-colors"
 >
   {currentUser ? (
