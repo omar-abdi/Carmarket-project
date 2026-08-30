@@ -6,14 +6,15 @@ import SigNup from './pages/SigNup'
 import SingIn from './pages/SingIn'
 import Header from './componets/Header'
 import PriveRoute from './componets/PriveRoute'
-import CarListing from './pages/CarListing'
+import Carlisting from './pages/Carlisting'
 import UpdateListing from './pages/UpdateListing'
 import Listing from './pages/Listing'
 import AllListing from './pages/AllListing'
 import VeiwList from './pages/VeiwList'
 import DashboardLayout from './pages/DashboardLayout'
 import About from './pages/About'
-import MyListings from './pages/MyListings'
+// import MyListings from './pages/MyListings'
+import Settings from './pages/Settings'
 function App() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-950">
@@ -39,10 +40,10 @@ function App() {
             >
 
               <Route path="/dashboard/profile" element={<Profile />} />
-               <Route path="/dashboard/carListing" element={<CarListing />} />
-                    <Route path="/dashboard/listing/:id" element={<Listing />} />
+               <Route path="/dashboard/carListing" element={<Carlisting />} />
+                       <Route path="/dashboard/Listing" element={<Listing />} />
                        <Route path="/dashboard/updateListing/:id" element={<UpdateListing />} />
-                       <Route path="/dashboard/myListings" element={<MyListings />} /> 
+                       <Route path="/dashboard/settings" element={<Settings />} /> 
             </Route>
 
 

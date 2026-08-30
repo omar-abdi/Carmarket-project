@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useAppContext } from "../context/AppContext";
 
 function Listing() {
-    const { id } = useParams();
+    const { currentUser } = useAppContext();
     const navigate = useNavigate();
 
     const [listingData, setListingData] = useState([]);
@@ -14,8 +15,10 @@ function Listing() {
     useEffect(() => {
         const getListing = async () => {
             try {
+                console.log("User ID:", currentUser._id);
+
                 const res = await axios.get(
-                    `http://localhost:8000/api/auth/listing/${id}`,
+                    `http://localhost:8000/api/auth/listing/${currentUser._id}`,
                     {
                         withCredentials: true,
                     }
@@ -36,10 +39,12 @@ function Listing() {
             }
         };
 
-        if (id) {
+        if (currentUser?._id) {
             getListing();
         }
-    }, [id]);
+    }, [currentUser]);
+
+    console.log(listingData);
 
     const handleUpdate = (car) => {
         navigate(`/dashboard/updateListing/${car._id}`, {
@@ -79,6 +84,7 @@ function Listing() {
         }
     };
 
+    // LOADING
     if (loading) {
         return (
             <div className="min-h-screen bg-[#0B0D12] flex flex-col items-center justify-center gap-4">
@@ -91,6 +97,7 @@ function Listing() {
         );
     }
 
+    // ERROR
     if (error) {
         return (
             <div className="min-h-screen bg-[#0B0D12] flex items-center justify-center">
@@ -101,6 +108,7 @@ function Listing() {
         );
     }
 
+    // NO LISTINGS
     if (!listingData || listingData.length === 0) {
         return (
             <div className="min-h-screen bg-[#0B0D12] flex items-center justify-center">
@@ -265,6 +273,7 @@ function Listing() {
                         </div>
                     </div>
                 ))}
+
             </div>
         </div>
     );

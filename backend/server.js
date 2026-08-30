@@ -16,13 +16,13 @@ app.use(cookieParser());
 app.use(express.json())
 
 app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type'],
+    origin: "http://localhost:5173",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type"],
 }));
 app.use("/api/users" , userRoutes)
-app.use("/api/auth" , authRoutes)
+app.use("/api/auth" , authRoutes) 
 app.use("/api/cars" , carRoutes)
 ///2FUNcl2F807epOwy
 const PORT = process.env.PORT || 5000

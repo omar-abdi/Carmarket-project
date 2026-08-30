@@ -11,11 +11,18 @@ import {
   Settings,
   LogOut,
 } from "lucide-react";
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
 function DashboardLayout() {
     const {currentUser} = useAppContext()
+    const navigate = useNavigate()
   const [open, setOpen] = useState(true);
+
+  const handleLogout = () => {
+    localStorage.removeItem('current-user-data');
+    localStorage.removeItem('userId');
+    navigate('/login');
+  };
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -57,42 +64,37 @@ function DashboardLayout() {
             )}
           </button>
 
-          <button className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-slate-600 transition hover:bg-slate-50 hover:text-indigo-600">
+          <Link to="/dashboard/Listing" className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-slate-600 transition hover:bg-slate-50 hover:text-indigo-600">
             <Car size={21} />
 
             {open && (
               <span className="font-medium">
-        <Link to={`/dashboard/listing/${currentUser._id}`}>
-    My Listings
-</Link>
+                My Listings
               </span>
             )}
-          </button>
+          </Link>
 
-          <button className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-slate-600 transition hover:bg-slate-50 hover:text-indigo-600">
+          <Link to="/dashboard/carListing" className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-slate-600 transition hover:bg-slate-50 hover:text-indigo-600">
             <PlusCircle size={21} />
 
             {open && (
               <span className="font-medium">
-                <Link to="/dashboard/carListing">Add Car</Link>
+                Add Car
               </span>
             )}
-          </button>
+          </Link>
 
-          <button className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-slate-600 transition hover:bg-slate-50 hover:text-indigo-600">
+          <Link to="/dashboard/profile" className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-slate-600 transition hover:bg-slate-50 hover:text-indigo-600">
             <User size={21} />
 
             {open && (
               <span className="font-medium">
-             <Link to="/dashboard/profile">
                 Profile
-
-             </Link>
               </span>
             )}
-          </button>
+          </Link>
 
-          <button className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-slate-600 transition hover:bg-slate-50 hover:text-indigo-600">
+          <Link to="/dashboard/settings" className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-slate-600 transition hover:bg-slate-50 hover:text-indigo-600">
             <Settings size={21} />
 
             {open && (
@@ -100,19 +102,19 @@ function DashboardLayout() {
                 Settings
               </span>
             )}
-          </button>
+          </Link>
 
         </nav>
 
         {/* Logout */}
         <div className="absolute bottom-0 left-0 w-full border-t border-slate-200 p-3">
 
-          <button className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-red-500 transition hover:bg-red-50">
+          <button onClick={handleLogout} className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-red-500 transition hover:bg-red-50">
             <LogOut size={21} />
 
             {open && (
               <span className="font-medium">
-              
+                Logout
               </span>
             )}
           </button>
