@@ -12,7 +12,8 @@
     "init": "^0.1.2",
     "jsonwebtoken": "^9.0.3",
     "mongodb": "^7.5.0",
-    "mongoose": "^9.8.1"
+    "mongoose": "^9.8.1",
+    "resend": "^6.25.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
