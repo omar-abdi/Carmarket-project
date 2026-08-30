@@ -11,7 +11,7 @@ import axios from 'axios'
 import {toast , ToastContainer} from 'react-toastify'
 import {useAppContext} from '../context/AppContext.jsx'
 
-function CarListing() {
+function Carlisting() {
   const {currentUser} = useAppContext();
     const fileInput = useRef(null);
     const [image, setImage] = useState("")
@@ -565,4 +565,4 @@ console.log(listingData)
   );
 }
 
-export default CarListing;
+export default Carlisting;
