@@ -13,6 +13,7 @@ import AllListing from './pages/AllListing'
 import VeiwList from './pages/VeiwList'
 import DashboardLayout from './pages/DashboardLayout'
 import About from './pages/About'
+import Contact from './pages/Contact'
 // import MyListings from './pages/MyListings'
 import Settings from './pages/Settings'
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/sigNup" element={<SigNup />} />
           <Route path="/login" element={<SingIn />} />
           <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/allListing" element={<AllListing />} />
           <Route path="/view/:id" element={<VeiwList />} />
           <Route element={<PriveRoute />}>

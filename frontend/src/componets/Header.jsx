@@ -47,6 +47,13 @@ function Header() {
              
             </Link>
             <Link
+              to="/contact"
+              className="relative text-sm text-[#B9BEC7] hover:text-white transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-[#F5A623] after:transition-all after:duration-300 hover:after:w-full"
+            >
+            Contact me
+             
+            </Link>
+            <Link
               to="/allListing"
               className="relative text-sm text-[#B9BEC7] hover:text-white transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-[#F5A623] after:transition-all after:duration-300 hover:after:w-full"
             >
