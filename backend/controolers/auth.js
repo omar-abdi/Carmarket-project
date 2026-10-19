@@ -139,7 +139,7 @@ export const deleteListing = async (req, res) => {
       });
     }
 
-    // Hubi in user-ka hadda login-gareysan yahay
+    // Hubi in user-ka hadda login-gareysan yaha
     // uu yahay qofkii listing-ka sameeyay
     if (listing.sellerRef.toString() !== req.user.id.toString()) {
       return res.status(403).json({
